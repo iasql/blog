@@ -57,12 +57,6 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
             label: 'Home',
             position: 'right'
           },
-          {
-            to: 'https://docs.iasql.com',
-            target: '_self',
-            label: 'Docs',
-            position: 'right'
-          },
         ],
       },
       footer: {
@@ -74,11 +68,6 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
               {
                 label: 'Home',
                 to: 'https://iasql.com',
-                target: '_self',
-              },
-              {
-                label: 'Docs',
-                to: 'https://docs.iasql.com',
                 target: '_self',
               },
             ],
