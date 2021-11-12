@@ -45,10 +45,11 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'IaSQL',
+        title: '',
         logo: {
           alt: 'logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
+          srcDark: 'img/logo_dark.png',
         },
         items: [
           {
