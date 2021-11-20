@@ -64,7 +64,7 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
             items: [
               {
                 label: 'Home',
-                to: 'https://iasql.com',
+                href: 'https://iasql.com',
                 target: '_self',
               },
             ],
