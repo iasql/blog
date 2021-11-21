@@ -78,7 +78,7 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/infrasql',
+                href: 'https://twitter.com/iasql',
               },
             ],
           },
