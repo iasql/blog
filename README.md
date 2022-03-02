@@ -1,1 +1,1 @@
-# iasql-releases
+# blog
