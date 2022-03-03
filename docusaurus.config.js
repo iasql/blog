@@ -13,7 +13,7 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
   title: 'IaSQL',
-  tagline: 'AWS Infrastructure as SQL',
+  tagline: 'Cloud Infra as a SQL DB',
   url: config.url,
   baseUrl: '/',
   trailingSlash: true,
@@ -55,6 +55,26 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
           href: 'https://iasql.com',
           target: '_self',
         },
+        items: [
+          {
+            to: 'https://github.com/iasql/iasql-engine',
+            target: '_self',
+            label: 'GitHub',
+            position: 'right',
+          },
+          {
+            to: 'https://discord.com/invite/machGGczea',
+            target: '_self',
+            label: 'Discord',
+            position: 'right'
+          },
+          {
+            to: 'https://docs.iasql.com',
+            target: '_self',
+            label: 'Docs',
+            position: 'right'
+          },
+        ],
       },
       footer: {
         style: 'light',
@@ -67,14 +87,28 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
                 href: 'https://iasql.com',
                 target: '_self',
               },
+              {
+                label: 'Docs',
+                href: 'https://docs.iasql.com',
+                target: '_self',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/iasql/iasql-engine',
+                target: '_self',
+              },
             ],
           },
           {
             title: 'Community',
             items: [
               {
-                label: 'Reddit',
-                href: 'https://reddit.com/r/iasql',
+                label: 'Discord',
+                href: 'https://discord.com/invite/machGGczea',
+              },
+              {
+                label: 'Forum',
+                href: 'https://github.com/iasql/iasql-engine/discussions',
               },
               {
                 label: 'Twitter',
