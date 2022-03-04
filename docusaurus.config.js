@@ -104,11 +104,7 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
             items: [
               {
                 label: 'Discord',
-                href: 'https://discord.com/invite/machGGczea',
-              },
-              {
-                label: 'Forum',
-                href: 'https://github.com/iasql/iasql-engine/discussions',
+                href: 'https://discord.com/invite/yxNBQugGbH',
               },
               {
                 label: 'Twitter',
