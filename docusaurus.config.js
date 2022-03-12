@@ -18,7 +18,7 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
   baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.png',
 
   customFields: config,
@@ -57,22 +57,24 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
         },
         items: [
           {
-            to: 'https://github.com/iasql/iasql-engine',
+            to: 'https://dbdocs.io/iasql/iasql',
             target: '_self',
-            label: 'GitHub',
-            position: 'right',
-          },
-          {
-            to: 'https://discord.com/invite/machGGczea',
-            target: '_self',
-            label: 'Discord',
-            position: 'right'
+            label: 'Schema',
           },
           {
             to: 'https://docs.iasql.com',
             target: '_self',
             label: 'Docs',
-            position: 'right'
+          },
+          {
+            to: 'https://discord.com/invite/machGGczea',
+            target: '_self',
+            label: 'Discord',
+          },
+          {
+            href: 'https://github.com/iasql/iasql-engine',
+            position: 'right',
+            className: 'header-github-link',
           },
         ],
       },
@@ -83,13 +85,13 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
             title: 'Product',
             items: [
               {
-                label: 'Home',
-                href: 'https://iasql.com',
+                label: 'Docs',
+                href: 'https://docs.iasql.com',
                 target: '_self',
               },
               {
-                label: 'Docs',
-                href: 'https://docs.iasql.com',
+                label: 'Schema',
+                href: 'https://dbdocs.io/iasql/iasql',
                 target: '_self',
               },
               {
