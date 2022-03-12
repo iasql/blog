@@ -13,7 +13,7 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
   title: 'IaSQL',
-  tagline: 'Cloud Infra as a SQL DB',
+  tagline: 'Manage cloud infrastructure using a hosted PostgreSQL db',
   url: config.url,
   baseUrl: '/',
   trailingSlash: true,
