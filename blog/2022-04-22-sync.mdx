@@ -1,0 +1,17 @@
+---
+slug: os-iasql
+title: "IaSQL: 2-way binding between your cloud and your database."
+authors: [depombo, dfellis, aguillenv]
+---
+
+When we talk about an infrastructure management tool, specifically Infrastructure as Code (IaC), we immediately think of one way of cloud manipulation, from your description to your cloud and that's all. But what happens when some resources get managed outside our tool? What happens with the infrastructure we already have in place and want to handle? Do we need to lock our cloud to be just controlled by one tool?
+
+[IaSQL](https://iasql.com) is not just a tool that lets you create, update or delete your infrastructure in the cloud. It provides you with the ability to import all the resources you already have in your cloud immediately after installing the module you are working on and also lets you import changes done outside IaSQL with the `iasql_sync()` function later on.
+
+Why is it good to have your IaSQL database synchronized with your cloud? We explain some advantages of having this feature:
+
+- Big picture. The production system's infrastructure of a project could get complex pretty fast. Some of the infrastructure's components could be in use by other resources. Any change in a resource could have some side effects or cause a misconfiguration in the application if the relationships are not clear enough. Having the complete representation of the resources we are interested in our database could help us make better decisions when providing or changing the infrastructure and help us avoid issues.
+- Flexibility. The sync command leaves the door open to be able to create resources out of IaSQL and still be managed by it. This flexibility provides you with confidence and control when you want to transition/migrate from one tool to another or manage some resources manually through the console or another team using a different provisioning mechanism. When using sync you do not have to be aware of the exact changes that have occurred to keep your infrastructure up-to-date.
+- Recovery. When it comes to production systems, you should have a  plan with different strategies in case of disaster. Cloud outages do not occur often but can happen, and in an event like this, you could lose all your deployed resources. IaSQL could become a new strategy in your recovery system plan if you keep your database up-to-date. You can apply all your changes after an outage and re-deploy all your infrastructure in a simple step.
+
+In IaSQL, the cloud infrastructure state is data. The ability to have your cloud state in the database and not just provision but also keep up-to-date the cloud infrastructure's state, opens the door to new opportunities. Team collaboration, vendor locking, the complete view of your infrastructure, and a new strategy to recover in case of an eventuality are some advantages of having a 2-way binding between your cloud and IaSQL.
