@@ -35,6 +35,9 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        gtag: {
+          trackingID: 'G-J20KBVRLE4',
+        },
       }),
     ],
   ],
