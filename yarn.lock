@@ -1418,7 +1418,7 @@
     webpack-merge "^5.8.0"
     webpackbar "^5.0.2"
 
-"@docusaurus/core@^2.0.0-beta.22":
+"@docusaurus/core@2.0.0-beta.22", "@docusaurus/core@^2.0.0-beta.22":
   version "2.0.0-beta.22"
   resolved "https://registry.yarnpkg.com/@docusaurus/core/-/core-2.0.0-beta.22.tgz#72430b817571e2d7354012523bcaefc99fe4e004"
   integrity sha512-8KU56anfNo6V6crZG+K/zPKvyAAosZcWfkeNYWu14BzigRbBirJf7ZLRkkLa1NgDdJt3EEBgg+Iv8olPMC1uog==
@@ -1663,13 +1663,23 @@
     "@docusaurus/utils-validation" "2.0.0-beta.21"
     tslib "^2.4.0"
 
-"@docusaurus/plugin-google-gtag@2.0.0-beta.21", "@docusaurus/plugin-google-gtag@^2.0.0-beta.21":
+"@docusaurus/plugin-google-gtag@2.0.0-beta.21":
   version "2.0.0-beta.21"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-google-gtag/-/plugin-google-gtag-2.0.0-beta.21.tgz#a4a101089994a7103c1cc7cddb15170427b185d6"
   integrity sha512-4zxKZOnf0rfh6myXLG7a6YZfQcxYDMBsWqANEjCX77H5gPdK+GHZuDrxK6sjFvRBv4liYCrNjo7HJ4DpPoT0zA==
   dependencies:
     "@docusaurus/core" "2.0.0-beta.21"
     "@docusaurus/utils-validation" "2.0.0-beta.21"
+    tslib "^2.4.0"
+
+"@docusaurus/plugin-google-gtag@^2.0.0-beta.22":
+  version "2.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-google-gtag/-/plugin-google-gtag-2.0.0-beta.22.tgz#4e3aac750f67c92275832c0d83281a5293184989"
+  integrity sha512-DkoFfHErs10YMQoXPmFn5MC9fj9URH9LbryjTPqDoIerAZjR7MZA5g/+OueYBcachpygPlWBu6Q3mhNX19VObA==
+  dependencies:
+    "@docusaurus/core" "2.0.0-beta.22"
+    "@docusaurus/types" "2.0.0-beta.22"
+    "@docusaurus/utils-validation" "2.0.0-beta.22"
     tslib "^2.4.0"
 
 "@docusaurus/plugin-sitemap@2.0.0-beta.21":
@@ -1794,6 +1804,20 @@
     react-helmet-async "^1.3.0"
     utility-types "^3.10.0"
     webpack "^5.72.1"
+    webpack-merge "^5.8.0"
+
+"@docusaurus/types@2.0.0-beta.22":
+  version "2.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/@docusaurus/types/-/types-2.0.0-beta.22.tgz#8042ccdf32a915db0e4a2c0e6f98f6d43c6f7fa5"
+  integrity sha512-F5NQyPKIBXcX+bOK+RMce9K8NTs9Vx6v5pZ4+byLylnNvC4I52USRm+s1l6jMpvlsP4XHz1h2Tm1L3RBCBOwpg==
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    commander "^5.1.0"
+    joi "^17.6.0"
+    react-helmet-async "^1.3.0"
+    utility-types "^3.10.0"
+    webpack "^5.73.0"
     webpack-merge "^5.8.0"
 
 "@docusaurus/utils-common@2.0.0-beta.21":
