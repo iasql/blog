@@ -1,10 +1,10 @@
 ---
 slug: vs-iac
-title: IaSQL vs IaC
+title: IaSQL vs IaC / Why IaSQL
 authors: [depombo]
 ---
 
-Modern, cloud-native IaC tools like Terraform take inspiration from the ones that came before like Chef and Puppet. However, legacy IaC tools were conceived to configure a (somewhat) fixed number of servers in data centers. Then the cloud came along. Click a button, and get a server. Click a button, and get rid of the server. The commoditization of on-demand, ephemeral servers gave way to a Cambrian explosion of developer tooling at different abstraction (and price) points atop servers in the cloud. However, legacy IaC tooling didn't anticipate the elasticity of the cloud. Cloud-native IaC tools today are not only used to configure servers in the cloud but mostly different compute and data services. AWS alone has over 200 services and counting. Each service with a different API.
+Modern, cloud-native IaC tools like Terraform take inspiration from the IaC tools that came before like Chef and Puppet. However, legacy IaC tools were conceived to configure a (somewhat) fixed number of servers in data centers. Then the cloud came along in the early 2010s. Click a button, and get a server. Click a button, and get rid of the server. The commoditization of on-demand, ephemeral servers gave way to a Cambrian explosion of developer tooling at different abstraction (and price) points atop servers in the cloud. However, legacy IaC tooling built for on-premise datacenters didn't anticipate the elasticity of the cloud. Cloud-native IaC tools today are not only used to configure servers in the cloud but many different compute and data services. AWS alone has over 200 services and counting. Each service with a different API.
 
 TODO:
 Puppet snippet VM
@@ -15,11 +15,11 @@ TF snippet EC2
 ```
 ```
 
-One of the biggest assumptions legacy IaC tools make is that the amount of servers in data centers is finite and doesn't change often. As such, creating a declaration or blueprint of the entire infrastructure works well for on-premise machines. However, applying an infrastructure declaration to a cloud account with many different types of interdependent resources makes it difficult to import and manage the cloud infrastructure that exists outside of said declaration. [IaSQL](https://iasql.com), like IaC tools, allows creating, updating or deleting infrastructure in the cloud. IaSQL does this by using the actual representation of the infrastructure instead of a blueprint. This allows developers to model cloud infrastructure in the same way the information in most software systems is represented: as data in a database. This means developers can scale the cloud with a familiar set of developer tools that the Postgres ecosystem has built over many decades, and using one of the most well-known programming languages, SQL.
+One of the biggest assumptions legacy IaC tools make is that the number of servers in data centers doesn't change often. As such, creating a declaration or blueprint of the entire infrastructure works well for on-premise machines. However, applying an infrastructure declaration to a cloud account with many different types of interdependent resources makes it difficult to import and manage the cloud infrastructure that exists outside of said declaration. [IaSQL](https://iasql.com), like IaC tools, allows creating, updating or deleting infrastructure in the cloud. IaSQL does this by using the actual representation of the infrastructure instead of a blueprint. Developers can then model cloud infrastructure in the same way the information in most software systems is represented: as data in a database. This means developers can scale the cloud with a familiar set of developer tools that the Postgres ecosystem has built over many decades, and using one of the most well-known programming languages, SQL.
+
+IaSQL can fully reconcile the current and desired state of infrastructure by providing the familiar `apply` command used in IaC tools like Terraform but also introducing a new input-less `sync` command. We created the IaSQL `sync` command to let different teams create resources outside of IaSQL with any cloud management tool while still inspecting and managing said resources with IaSQL. Infrastructure drift, identifying resources one by one to import them and untamable state files arise when IaC tools try to model infrastructure that exists in the cloud, but not in the IaC declaration. However, these problems go away when infrastructure is simply data in a database.
 
 TODO: current vs desired state cycle diagram
-
-IaSQL can fully reconcile the current and desired state of infrastructure by providing the familiar `apply` command used in IaC tools like Terraform but also introducing a new input-less `sync` command. We created the IaSQL `sync` command to let different teams create resources outside of IaSQL with any cloud management tool while still inspecting and managing said resources with IaSQL. This eliminates problems that arise with IaC tools when staying up to date with infrastructure that exists in the cloud, but not in the IaC declaration such as infrastructure drift, explicitly importing resources and huge state files.
 
 TODO:
 1. create ec2 instance via IaSQL
@@ -31,9 +31,9 @@ TODO:
 
 ### State files vs Databases
 
-IaC tools like Terraform and Pulumi automatically create state files to reconcile infrastructure that exists in the cloud, but not in the infrastructure declaration. State files don't use human-readable syntax and are hard to inspect or modify, especially at scale. Terraform has gone to great lengths to make it palatable to manipulate these machine-generated files using their CLI tool. However, databases were created to replace files when manipulating a large amount of structured information and developer communities have built a lot of tooling around them. IaSQL sets forth a much more natural and battle-tested way to manage infrastructure data. Let's simply use a database.
+Cloud-native IaC tools automatically create state files to reconcile infrastructure that exists in the cloud, but not in the infrastructure declaration. State files in [Terraform](https://www.terraform.io/language/state) and [Pulumi](https://www.pulumi.com/docs/intro/concepts/state/) are JSON files with metadata about cloud accounts that have to be stored separately from the infra declarations, typically in some sort of file storage like S3. The fact that state files are JSON makes them hard to inspect and modify, especially at scale. Terraform has been around for longer than Pulumi and has gone to great lengths to make it palatable to manipulate these machine-generated files using their [CLI state subcommand](https://www.terraform.io/cli/commands/state/mv). This begs the question, why are we using files instead of databases to store and manage large amounts of information about complex systems? Databases were created to replace files when manipulating large amounts of structured information efficiently. Most people that know how to code, regardless of their job title, are familiar with databases in some capacity because databases have been around for decades. The ubiquitousness of databases means an abundance of battle-tested developer tools that are used in most large-scale, stateful software systems and using them enables us to “stand on the shoulders of giants”. IaSQL sets forth that infrastructure is just data and the easiest way to manage any significant amount of data is in a database.
 
-Some organizations prevent the generation of state files when using IaC tools by making cloud dashboards read-only for all employees and only allowing infrastructure changes to occur through the declaration. However, this means every single team in an organization that can span thousands of people (and software systems) has to adhere to this convention. This can be an untenable premise when workflows span multiple clouds, time zones, deployment strategies, dependencies and versions. Application engineers often need to move quickly and use the cloud UI to spin up infrastructure that could depend on infrastructure previously created through an IaC tool. To make matters worse, subsequent changes to the underlying IaC declaration can affect the infrastructure created through the cloud UI as it is only represented in the state file.
+Some organizations can prevent the generation of state files when using IaC tools by making cloud dashboards read-only for all employees and only allowing infrastructure changes to occur through the declaration. However, this means every single team in an organization that can span thousands of people (and software systems) has to adhere to this convention. This can be an untenable premise when workflows span multiple clouds, time zones, deployment strategies, dependencies and versions. Application engineers often need to move quickly and use the cloud UI to spin up infrastructure that could depend on infrastructure previously created through an IaC tool.
 
 ![](../static/img/comparison.jpg)
 
@@ -47,13 +47,15 @@ TODO terraform import example
 
 This piecemeal process makes it very time-consuming to reconcile infrastructure outside the declaration, especially at scale. Pulumi allows [importing](https://www.pulumi.com/docs/guides/adopting/import/) existing resources by identifying each resource via the CLI or calling out each resource via a JSON file or script. Furthermore, importing a resource that is depended on by other pieces of infrastructure often requires a [complex set of steps](https://www.terraform.io/cli/import/usage#complex-imports). On the other hand, IaSQL automatically imports all existing cloud resources as modules representing cloud services are installed without any additional input or steps other than by calling `iasql_sync`. 
 
+TODO pulumi import example
+```
+```
+
 ### Infrastructure drift (WIP)
 
 The fact is that someone is going to access live cloud systems at some point to debug or in the case of an emergency. 
 
 IaSQL's automatic import guarantees there is no drift the moment an IaSQL database, which is a Postgres DB with no bells or whistles, is connected to an AWS account.
-
-The drift between the infrastructure representation and what is actually in the cloud is squashed with the `iasql_sync()` [function](https://docs.iasql.com/functions).
 
 ### Relations and dependencies
 
@@ -65,9 +67,14 @@ The infrastructure of a production system can get complex quickly. Infrastructur
 
 The advent of typed PL has shown the importance of being able to catch a subset of all errors compile-time. IaC tools are akin to scripting languages here since any errors generated in their internal representations DAGs are only surfaced at runtime.
 
-### Backups and disaster recovery
+### Backups and disaster recovery (WIP)
 
 Every production system should have contingency plans in case issues arise. Cloud outages and human errors can delete or corrupt infrastructure. IaSQL provides a recovery system plan based on up-to-date database backups. It is trivial to apply a snapshot after an outage and re-deploy the entire production infrastructure in a simple step.
 
-(WIP)
-In IaSQL, cloud infrastructure is data through a 2-way binding between a cloud account and a PostgreSQL database. Cloud infrastructure declarations are great in theory, but they don't describe what is *actually* in the cloud account. Furthermore, SQL can natively and ergonomically encode relations in a way that most configuration-based syntaxes simply cannot. The ability to represent cloud infrastructure in a PostgreSQL database through a 2-way connection allows making CRUD changes while also tracking changes done elsewhere. SQL is also the lingua franca of data which means that many developers are already familiar with it. All of this opens the door to new opportunities in terms of team collaboration, vendor locking, cost optimization, and disaster recovery strategies.
+### What now?
+
+In IaSQL, cloud infrastructure is data through a 2-way binding between a cloud account and a PostgreSQL database. The ability to represent cloud infrastructure in a PostgreSQL database through a 2-way connection allows making CRUD changes while also tracking changes done elsewhere. Cloud infrastructure declarations are great in theory, but they don't describe what is *actually* in the cloud account without state files, infrastructure drift or time-consuming import migrations. SQL is the lingua franca of data which means that many developers are already familiar with IaSQL. Furthermore, SQL can natively, type-safely and ergonomically encode relations in a way that most configuration-based syntaxes cannot.
+
+We hope that with IaSQL, developers and DevOps teams alike will bring about a new era for the cloud. Building on the cloud will be more productive, more enjoyable, and more familiar. Modern cloud software will shift from being a black art that only a select few can modify and master, to empowering any developer to create elegant cloud systems managed like all other systems.
+
+This is the most exciting moment in my career thus far. The proposition is ambitious. IaSQL still has a long way to go. We only support parts of AWS and we are not even at a 0.1 version yet! However, we look forward to a time when we can treat infrastructure like just another database in the backend managed with pure SQL or whatever programming language fits my stack using the same old database management tools.
