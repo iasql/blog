@@ -1,13 +1,13 @@
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
 const darkCodeTheme = require('prism-react-renderer/themes/nightOwl');
 
-const baseConfig = {
+const prodConfig = {
   url: 'https://blog.iasql.com',
 };
 const localConfig = {
   url: 'http://localhost:3000'
 };
-const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, localConfig) : baseConfig;
+const config = process.env.IASQL_ENV === 'local' ? localConfig : prodConfig;
 
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -22,6 +22,11 @@ const config = process.env.IASQL_ENV === 'local' ? Object.assign(baseConfig, loc
   favicon: 'img/favicon.png',
 
   customFields: config,
+
+  clientModules: [
+    require.resolve('./telemetry.js'),
+  ],
+
 
   presets: [
     [
