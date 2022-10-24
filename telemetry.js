@@ -39,7 +39,7 @@ export function onRouteDidUpdate({location, previousLocation}) {
 if (ExecutionEnvironment.canUseDOM) {
   // https://developers.amplitude.com/docs/advanced-settings#cross-domain-tracking-javascript
   Amplitude.getInstance().init(AMP_KEY, null, {includeReferrer: true, includeUtm: true, deviceIdFromUrlParam: true}, addDeviceId);
-  Amplitude.getInstance().logEvent("DOCS", {
+  Amplitude.getInstance().logEvent("BLOG", {
     route: document.location.pathname,
   });
   Hotjar.init(HOTJAR_SITE_ID, HOTJAR_VERSION);
