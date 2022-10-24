@@ -16,6 +16,9 @@ function addDeviceId() {
   // Docs
   document.querySelectorAll("[href='https://docs.iasql.com']")
     .forEach(n => n.href = `https://docs.iasql.com?amp_device_id=${deviceId}`);
+  // Blog
+  document.querySelectorAll("[href='https://blog.iasql.com']")
+  .forEach(n => n.href = `https://blog.iasql.com?amp_device_id=${deviceId}`);
   // Landing page
   document.querySelectorAll("[href='https://iasql.com']")
     .forEach(n => n.href = `https://iasql.com?amp_device_id=${deviceId}`);
@@ -25,7 +28,7 @@ export function onRouteDidUpdate({location, previousLocation}) {
   // Don't execute if we are still on the same page; the lifecycle may be fired
   // because the hash changes (e.g. when navigating between headings)
   if (location.pathname !== previousLocation?.pathname) {
-    Amplitude.getInstance().logEvent("DOCS", {
+    Amplitude.getInstance().logEvent("BLOG", {
       route: location.pathname,
     });
     addDeviceId();
