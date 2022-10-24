@@ -1,4 +1,5 @@
 import Amplitude from 'amplitude-js';
+import Hotjar from '@hotjar/browser';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 const AMP_KEY = 'c9d876059e7c9a83e44dcef855e77f48';
