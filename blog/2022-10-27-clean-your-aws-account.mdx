@@ -1,0 +1,23 @@
+---
+slug: clean-your-aws-account
+title: Clean your AWS account just by clicking a button
+authors: [depombo, dfellis, aguillenv, yrobla]
+---
+
+# Clean your AWS account by simply clicking a button
+
+One of the main complexities of working with AWS is the amount of resources that can be created, either by manual or automated workflows. The chained resources created and dependencies can quickly get out of control, and it could be a nightmare to clean up then.
+
+Having resources out of control will cause you to incur on extra costs, or could cause unexpected conflicts. Cleaning those manually can be a hard task... manually visiting each resource, investigating the dependencies, manually cleaning... it is a time-consuming, error-prone task.
+
+To solve this problem you can use our IaSQL engine. By simply clicking a button, our engine will get an snapshot of the status of your cloud, and will schedule deletion of the existing resources and its dependencies until your account is totally clean.
+
+**Want to give a try? Join our service for free and start taking control of your cloud.**
+
+<!--- https://www.urlencoder.org/ -->
+
+<a href="SELECT%20iasql_install%28variadic%20array%28select%20module_name%20from%20iasql_modules_list%28%29%29%29%3B%0ASELECT%20%2A%20FROM%20delete_all_records%28%29%3B%0ASELECT%20%2A%20FROM%20iasql_apply%28%29%3B">
+  <button className={"button button--primary button--lg margin-bottom--lg"}>
+    Clean your account!
+  </button>
+</a>
