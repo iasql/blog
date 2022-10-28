@@ -1,0 +1,69 @@
+---
+slug: optimize-your-s3-endpoints
+title: Optimize your S3 endpoints for cost and efficiency
+authors: [depombo, dfellis, aguillenv, yrobla]
+---
+
+# Optimize your S3 endpoints for cost and efficiency
+
+<p>
+  Are you using S3 buckets as part of your cloud deployments ? How are you
+  accessing them?
+</p>
+<p>
+  When not configured properly, access to the S3 buckets may need internet
+  access. One simple but costly way is to rely on{" "}
+  <a
+    href="https://docs.aws.amazon.com/en_en/vpc/latest/userguide/vpc-nat-gateway.html"
+    target="_blank"
+  >
+    NAT gateways
+  </a>
+  . But there is a more optimal solution, that is creating <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html">
+    gateway VPC endpoints
+  </a> for each region where you have buckets exposed.
+</p>
+
+<p>
+  When the VPC endpoints are enabled you could access your S3 buckets using this
+  gateway. This will allow you to control your buckets from internal network
+  with the desired security, and without the extra costs of a NAT gateway.
+</p>
+
+<p>
+  Do you want to know if you have it properly configured? Please use this query
+  to check it:
+</p>
+
+<!--- https://www.urlencoder.org/ -->
+
+<p>
+  <a href="https://app.iasql.com/#/button/Check S3 endpoints/--%20Installing%20the%20needed%20modules%0ASELECT%20iasql_install%28%27aws_s3%27%29%3B%0ASELECT%20iasql_install%28%27aws_vpc%27%29%3B%0A--%20Perform%20the%20query%20for%20endpoints%0Aselect%20bucket.region%2C%20vpc.is_default%2C%20vpc.cidr_block%2C%20%28select%20count%28%2A%29%3E0%20from%20endpoint_gateway%20where%20endpoint_gateway.region%3Dbucket.region%20and%20service%3D%27s3%27%20and%20endpoint_gateway.vpc_id%3Dvpc.id%29%20as%20endpoint_gateway%20from%20bucket%20left%20outer%20join%20vpc%20on%20vpc.region%3Dbucket.region%3B">
+    <button class="button button--lg button--primary">
+      Check your endpoints
+    </button>
+  </a>
+</p>
+
+<p>
+  Have you found missing endpoints? No problem, IaSQL can generate them for you.
+  By clicking on the button, our engine will auto-generate the missing endpoints
+  and will allow you to preview the changes to be applied on your cloud.
+</p>
+
+<p>
+  <a href="https://app.iasql.com/#/button/Optimize S3 endpoints/--%20Inserts%20the%20missing%20endpoints%0Ainsert%20into%20endpoint_gateway%28region%2C%20vpc_id%2C%20service%29%20select%20bucket.region%2C%20vpc.id%2C%20%27s3%27%20from%20bucket%20inner%20join%20vpc%20on%20bucket.region%3Dvpc.region%20where%20not%20exists%20%28select%20id%20from%20endpoint_gateway%20where%20endpoint_gateway.region%3Dbucket.region%20and%20endpoint_gateway.vpc_id%3Dvpc.id%29%0A--%20Preview%20the%20changes%0Aselect%20%2A%20from%20iasql_preview_apply%28%29%3B%0A--%20Apply%20the%20changes%0A--select%20%2A%20from%20iasql_apply%28%29%3B">
+    <button class="button button--lg button--primary">
+      Add missing endpoints
+    </button>
+  </a>
+</p>
+
+<p>
+  Once all the relevant endpoints have been created, please check your access
+  from EC2 instances or other resources:
+</p>
+
+<div class="col col--12">
+  <img src="img/clean_all_screenshot.png" />
+</div>
