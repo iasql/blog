@@ -15,7 +15,7 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.1.0",
+    "@docusaurus/core": "^2.2.0",
     "@docusaurus/plugin-google-gtag": "^2.0.0-beta.21",
     "@docusaurus/preset-classic": "^2.1.0",
     "@hotjar/browser": "^1.0.6",
