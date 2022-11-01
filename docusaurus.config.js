@@ -49,7 +49,6 @@ const config = process.env.IASQL_ENV === 'local' ? localConfig : prodConfig;
         apiKey: "phc_WjwJsXXSuEl2R2zElUWL55mWpNIfWR8HrFvjxwlTGWH",
         appUrl: "https://app.posthog.com", // optional
         enableInDevelopment: false, // optional
-        persistence: ''
         // other options are passed to posthog-js init as is
       },
     ],
