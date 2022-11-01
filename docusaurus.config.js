@@ -15,7 +15,7 @@ const config = process.env.IASQL_ENV === 'local' ? localConfig : prodConfig;
   title: 'IaSQL',
   tagline: 'Infrastructure as data using PostgreSQL',
   url: config.url,
-  baseUrl: '/blog',
+  baseUrl: '/blog/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
