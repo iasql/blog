@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default function CookieBanner() {
-  if (!ExecutionEnvironment.canUseDOM || !window.posthog || !showBanner) return <></>;
+  if (!ExecutionEnvironment.canUseDOM || !window.posthog) return <></>;
 
-  const [showBanner, setShowBanner] = useState(!window.posthog.has_opted_out_capturing() && !window.posthog.has_opted_in_capturing()); // new
+  const [showBanner, setShowBanner] = useState(!window.posthog.has_opted_out_capturing() && !window.posthog.has_opted_in_capturing());
+
+  if (!showBanner) return <></>;
   
   const acceptCookies = () => { 
     window.posthog.opt_in_capturing();
