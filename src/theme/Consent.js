@@ -1,18 +1,19 @@
-import React, { useState } from 'react'; // new
+import React, { useState } from 'react';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default function CookieBanner() {
-  const [showBanner, setShowBanner] = useState(window.posthog && !window.posthog.has_opted_out_capturing() && !window.posthog.has_opted_in_capturing()); // new
+  if (!ExecutionEnvironment.canUseDOM || !window.posthog || !showBanner) return <></>;
 
-  if (!window.posthog || !showBanner) return <></>;
+  const [showBanner, setShowBanner] = useState(!window.posthog.has_opted_out_capturing() && !window.posthog.has_opted_in_capturing()); // new
   
   const acceptCookies = () => { 
     window.posthog.opt_in_capturing();
-    setShowBanner(false); // new
+    setShowBanner(false);
   };
 
   const declineCookies = () => {
     window.posthog.opt_out_capturing();
-    setShowBanner(false); // new
+    setShowBanner(false);
   };
 
   return (
