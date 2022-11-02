@@ -2,7 +2,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
 const darkCodeTheme = require('prism-react-renderer/themes/nightOwl');
 
 const prodConfig = {
-  url: 'https://iasql.com',
+  url: 'https://iasql.github.io',
 };
 const localConfig = {
   url: 'http://localhost:3000'
