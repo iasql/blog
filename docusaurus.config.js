@@ -2,7 +2,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
 const darkCodeTheme = require('prism-react-renderer/themes/nightOwl');
 
 const prodConfig = {
-  url: 'https://iasql.github.io',
+  url: 'https://iasql.github.io/blog',
 };
 const localConfig = {
   url: 'http://localhost:3000'
@@ -15,7 +15,7 @@ const config = process.env.IASQL_ENV === 'local' ? localConfig : prodConfig;
   title: 'IaSQL',
   tagline: 'Infrastructure as data using PostgreSQL',
   url: config.url,
-  baseUrl: '/blog/',
+  baseUrl: '/',
   trailingSlash: true,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
