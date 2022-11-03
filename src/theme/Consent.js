@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default function CookieBanner() {
-  if (!ExecutionEnvironment.canUseDOM || !window.posthog || !window.posthog.has_opted_out_capturing) return <></>;
+  if (!ExecutionEnvironment.canUseDOM || !window.posthog || !window.posthog.has_opted_out_capturing || !window.posthog.has_opted_in_capturing) return <></>;
 
   const [showBanner, setShowBanner] = useState(!window.posthog.has_opted_out_capturing() && !window.posthog.has_opted_in_capturing());
 
