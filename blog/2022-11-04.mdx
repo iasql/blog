@@ -1,0 +1,35 @@
+---
+slug: ecs-simplified
+title: Deploying to ECS, Simplified!
+authors: [mtp1376]
+---
+If you have ever tried to deploy your containerized application to ECS, you know that it's not going to be an easy click-to-deploy journey. In order to get your application up and running on ECS, you have to go through a bunch of resource creation. You'll need to:
+- deploy a load balancer as the point-of-contact for your app
+- create a target group for the load balancer and register the ECS tasks in it
+- add a new listener to your load balancer and connect it to the target group
+- create a security group, and you need to allow the port your app is listening on in that security group
+- attach the security group above to your load balancer
+- create a CloudWatch log group for your ECS task
+- create an ECS cluster, and definitely the task definition as well
+- Oh, and create an ECR repository to push your images to be run on the container
+
+I'm not going to continue this long list, since I've already got a headache. Doing those steps manually is going to give you a headache as well, so why bother doing all those steps yourself and risking different errors you might face when deploying your containerized app? You don't really have the time for the random IAM-related errors AWS demanding you to resolve. Besides, you already have your codebase ready and the `Dockerfile` is there, so why not just run a simple command doing something that should be simply done?
+
+In this post, we're going to discover an IaSQL module that's built to make deploying to ECS, simplified. Most of the details for deploying a container to ECS are the same (load balancers, security groups, IAM roles, etc), and we have created the `ecs_simplified` module for you so that you can give it your codebase and get your app deployed to ECS **in just 11 minutes**. All of those needed resources are going to be created automatically in your AWS account, and you'll have full access over them either through the AWS dashboard, or through your IaSQL database.
+
+## ** An Example of `ecs_simplified` Module **
+Let's say we are going to deploy [this simple Express.js app](https://github.com/iasql/iasql-engine/tree/main/examples/ecs-fargate/prisma/app) to the ECS. It has a `Dockerfile` ready which `npm install`s the `express` package and then starts the Express server which listens on the port `8088`.
+
+Assuming that you have an IaSQL database, let's go and deploy the above app to our AWS account.
+```sql
+SELECT iasql_install('aws_ecs_simplified');
+insert into ecs_simplified (app_name, app_port, image_tag, public_ip) values ('simple-express', 8088, 'latest', true);
+select iasql_apply();
+SELECT ecr_build(
+  'https://github.com/iasql/iasql-engine/',
+  (SELECT id FROM repository WHERE repository_name = 'simple-express-repository')::varchar(255),
+  './examples/ecs-fargate/prisma/app',
+  'ghp_XXX', -- replace your github personal access token here
+  'main'
+);
+```
