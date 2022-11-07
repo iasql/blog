@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog=self.webpackChunkblog||[]).push([[535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"UPDATE iasql SET source = \'open\';","permalink":"/os-iasql"},{"title":"Introduction to Infrastructure as SQL","permalink":"/intro-iasql"}]}')}}]);

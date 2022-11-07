@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog=self.webpackChunkblog||[]).push([[54],{7275:(e,l,t)=>{t.r(l),t.d(l,{default:()=>n});var u=t(7294);function n(){return u.useEffect((()=>{window.location.href="https://iasql.com/blog"}),[]),null}}}]);
